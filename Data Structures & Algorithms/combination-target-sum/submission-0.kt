@@ -1,0 +1,25 @@
+class Solution {
+    fun combinationSum(nums: IntArray, target: Int): List<List<Int>> {
+
+        val ans = mutableListOf<List<Int>>()
+
+        fun helper(combo: MutableList<Int>, target: Int){
+            if(target < 0) return
+            if(target == 0) {
+                ans.add(combo.toList())
+                return
+            }
+
+            for(i in nums){
+                combo.add(i)
+                helper(combo,target-i)
+                combo.removeLast()
+            }
+        }
+
+        helper(mutableListOf(), target)
+
+        return ans.map{ it.sorted()}.toSet().toList()
+
+    }
+}
